@@ -1,0 +1,13 @@
+<h1>Sign In</h1>
+<%= form_with model: @user, url:'/login', local: true do |f|%>
+ 
+    <p>
+        <%= f.label "username"%><br>
+        <%= f.text_field :username%><br>
+    </p>
+    <p>
+        <%= f.label :password%><br>
+        <%= f.password_field :password%><br>
+    </p>
+    <%= f.submit %>
+<%end%>
