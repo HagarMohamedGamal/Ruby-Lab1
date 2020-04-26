@@ -1,13 +1,16 @@
 class CommentsController < ApplicationController
-
+    load_and_authorize_resource
 
     def new
         @comment = Comment.new
     end
  
     def create
+        @author = Author.find(current_author.id)
         @article = Article.find(params[:article_id])
-        @comment = @article.comments.create(article_params)
+        @comment = @article.comments.new(article_params)
+        @comment.author_id = current_author.id
+        @comment.save
         redirect_to article_path(@article)
     end
 

@@ -1,4 +1,5 @@
 <%= form_with(model: [ @article, @article.comments.build ], local: true) do |form| %>
+  <% if can? :create, Comment %>
     <p>
       <%= form.label :commenter %><br>
       <%= form.text_field :commenter %>
@@ -10,4 +11,5 @@
     <p>
       <%= form.submit %>
     </p>
+    <% end %>
   <% end %>

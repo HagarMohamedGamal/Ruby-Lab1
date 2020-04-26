@@ -1,6 +1,8 @@
 class ArticlesController < ApplicationController
-    http_basic_authenticate_with name: "hagar", password: "hagar",
-    except: [:index, :show]
+    # http_basic_authenticate_with name: "hagar", password: "hagar",
+    # except: [:index, :show]
+    load_and_authorize_resource
+    skip_authorize_resource :only => [:index, :show]
 
     def index
         @articles = Article.all
@@ -19,7 +21,8 @@ class ArticlesController < ApplicationController
     end
 
     def create
-        @article = Article.new(article_params)
+        @author = Author.find(current_author.id)
+        @article = @author.articles.new(article_params)
         if @article.save
             redirect_to @article
         else
